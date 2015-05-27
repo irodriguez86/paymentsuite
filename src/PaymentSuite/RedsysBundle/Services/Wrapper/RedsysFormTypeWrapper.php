@@ -209,6 +209,27 @@ class RedsysFormTypeWrapper
             ));
         }
 
+        /*
+         * Optional form fields for recurring transaction
+         */
+        if (array_key_exists('sum_total', $extraData)) { //Suma de todas las cuotas
+            $formBuilder->add('Ds_Merchant_SumTotal', 'hidden', array(
+                'data' => $extraData['sum_total'],
+            ));
+        }
+
+        if (array_key_exists('date_frequency', $extraData)) { // Frecuencia mínima en dias entre cuotas
+            $formBuilder->add('Ds_Merchant_DateFrecuency', 'hidden', array(
+                'data' => $extraData['date_frequency'],
+            ));
+        }
+
+        if (array_key_exists('charge_expiry_date', $extraData)) { // Fecha de la última cuota. A partir de esta fecha se rechazan las sucesivas
+            $formBuilder->add('Ds_Merchant_ChargeExpiryDate', 'hidden', array(
+                'data' => $extraData['charge_expiry_date'],
+            ));
+        }
+
         return $formBuilder->getForm()->createView();
     }
 
